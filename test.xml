@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<document>
+  <!--
+    this is an example xml file used by one of my applications
+  -->
+  
+  <include> BigInt.hh     </include>
+  <include> MpIeee.hh     </include>
+  
+  <!--
+  include rules
+  -->
+  <include global="false"> 
+    ArithmosIO.hh 
+  </include>
+  <include global="true">
+    vector
+  </include>
+
+
+  <source name="partial">
+    <keyword>unsigned</keyword>
+    <keyword>signed</keyword>
+  </source>
+  
+  
+  <assignment name="afloat">
+    <token> integer </token>
+    <token> decimal </token>
+  </assignment>
+  <!--
+    In the original proposal I used source tags for both int and BigInt, but
+    this can give problems for source files which both use integers and BigInt's since
+    we can't make a distinction between what has to be converted and what is allready done.
+    If we still want to convert MpIeee into let's say mpIeee's we could add the mpIeee type to the
+    source tags etc... 
+  -->
+  <target name="tint">
+    <keyword> BigInt </keyword>
+  </target>
+
+
+  <!-- the conversion rules -->
+  <convert name="float to mpieee">
+    <source name="sfloat"/>
+    <target name="tfloat"/>
+  </convert>
+
+  <convert name="constructor op">
+    <target name="tfloat"/>
+    <target name="tint"/>
+    <operation> toConstructor </operation>
+  </convert>
+
+</document>
+
